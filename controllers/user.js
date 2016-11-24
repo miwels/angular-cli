@@ -21,3 +21,11 @@ exports.insert = function(req, res, next)
         res.send(JSON.stringify(output));
     });
 };
+
+exports.getAll = function(req, res, next)
+{
+    var db = req.db;
+    db.collection('userdata').find().toArray(function(err, data) {
+        res.send(data);
+    });
+};

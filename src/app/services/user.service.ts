@@ -8,8 +8,15 @@ import {User} from '../models/user';
 export class UserService {
 
     private _saveProfileUrl: string = '/api/user/save';
+    private _getProfileUrl:  string = '/api/users';
 
     constructor(private _http: Http) {
+    }
+
+    getUsers() {
+        return this._http.get(this._getProfileUrl)
+                         .map(res => res.json)
+                         .catch(this.handleError);
     }
 
     // Returns a list of countries
