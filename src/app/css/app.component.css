@@ -1,0 +1,9 @@
+.incorrect-field {
+    border: 1px solid red;
+    background-color: pink;
+}
+.incorrect-message{
+    color: red;
+    font-size: 10px;
+    padding: 2px;
+}
