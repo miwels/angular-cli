@@ -4,7 +4,7 @@ import { AppComponent }   from './app.component';
 import { TestBed, async } from '@angular/core/testing';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
-import { Http, HttpModule }           from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -40,11 +40,20 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Some useful Government service');
   }));
 
-  it('should contain a text field', async(() => {
+  it('should contain a name text field', async(() => {
     let fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     let compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('input[type="text"]')).toBeTruthy();
+    expect(compiled.querySelector('input[placeholder="Enter your name"]')).toBeTruthy();
+  }));
+
+  it('should contain an age text field', async(() => {
+    let fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('input[type="text"]')).toBeTruthy();
+    expect(compiled.querySelector('input[placeholder="Enter your age"]')).toBeTruthy();
   }));
 
   it('should contain a dropdown field', async(() => {
@@ -54,10 +63,17 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('select')).toBeTruthy();
   }));
 
-  it('should contain a radio button', async(() => {
+  it('should contain a button to choose sex', async(() => {
     let fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('input[type="radio"]')).toBeTruthy();
+    expect(compiled.querySelector('input[name="sex"]')).toBeTruthy();
+  }));
+
+  it('should contain a submit button', async(() => {
+    let fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('button')).toBeTruthy();
   }));
 });

@@ -6,7 +6,7 @@ import {User} from '../models/user';
 @Component({
     selector: 'my-app',
     template: `
-        <div [hidden]="submitted">
+        <div [hidden]="submitted" class="container">
             <h1>{{ title }}</h1>
             <form enctype="multipart/form-data">
                 <div>
@@ -58,7 +58,7 @@ import {User} from '../models/user';
             {{ user.name }} Thank you for applying to this useful government service.
         </div>
     `,
-    // styleUrls: ['app/css/app.component.css'],
+    styleUrls: ['../css/app.component.css'],
     // The providers array tells Angular to create a fresh instance of the HeroService when it creates a new HeroesComponent. The HeroesComponent can use that service to get heroes and so can every child component of its component tree.
     providers: [CountryService, UserService]
 })
@@ -67,7 +67,7 @@ export class AppComponent
 {
     title = "Some useful Government service";
 
-    user              : User = new User('', 'male', '', '');
+    user              : User = new User('', '', '', '');
     errorMessage      : any;
     countries         : Object[] = [];
     submitted         : boolean  = false;
@@ -116,7 +116,9 @@ export class AppComponent
     validateForm() : boolean
     {
         this.valid['name'] = this.user.name != '' ? true : false;
-        this.valid['age']  = this.user.age != '' && !isNaN(parseInt(this.user.age)) ? true : false;
+        this.valid['age']  = this.user.age != ''
+                                && !isNaN(parseInt(this.user.age))
+                                && (parseInt(this.user.age) >= 18 && parseInt(this.user.age) <= 99) ? true : false;
         this.valid['sex']  = this.user.sex == "male"  || this.user.sex == "female" ? true : false;
         this.valid['country'] = this.user.country != '' ? true : false;
 

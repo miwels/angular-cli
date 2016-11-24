@@ -6,7 +6,8 @@ exports.insert = function(req, res, next)
         name: req.body.name,
         age: req.body.age,
         sex: req.body.sex,
-        country: req.body.country
+        country: req.body.country,
+        dateCreated: Date.now(),
     };
 
     db.collection('userdata').insertOne(data, function(err, data) {
