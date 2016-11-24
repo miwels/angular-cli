@@ -6,9 +6,9 @@ import {User} from '../models/user';
 @Component({
     selector: 'my-app',
     template: `
-        <div [hidden]="submitted" (ngSubmit)="onSubmit()">
+        <div [hidden]="submitted">
             <h1>{{ title }}</h1>
-            <form enctype="multipart/form-data" #f="ngForm">
+            <form enctype="multipart/form-data">
                 <div>
                     <label for="name">Name</label>
                     <input  type="text"
