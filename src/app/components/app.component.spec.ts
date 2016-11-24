@@ -4,7 +4,49 @@ import { AppComponent }   from './app.component';
 import { TestBed, async } from '@angular/core/testing';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
-import { Http, HttpModule } from '@angular/http';
+import { Http, HttpModule, BaseRequestOptions, ResponseOptions, Response } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BrowserModule } from '@angular/platform-browser';
+import { CountryService}  from '../services/country.service';
+
+describe('CountryService', function() {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        CountryService,
+        MockBackend,
+        BaseRequestOptions,
+        {
+          provide: Http,
+          deps: [MockBackend, BaseRequestOptions],
+          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
+                        return new Http(backend, defaultOptions);
+          }
+        }
+      ],
+      imports: [
+        FormsModule,
+        HttpModule
+      ]
+    });
+    TestBed.compileComponents();
+  });
+
+    function setupConnections(backend: MockBackend, options: any) {
+        backend.connections.subscribe((connection: MockConnection) => {
+            if (connection.request.url === 'api/forms') {
+                const responseOptions = new ResponseOptions(options);
+                const response = new Response(responseOptions);
+
+                connection.mockRespond(response);
+            }
+        });
+    }
+
+    it('should return a list of countries', () => {
+        
+    });
+});
 
 describe('AppComponent', () => {
   beforeEach(() => {
