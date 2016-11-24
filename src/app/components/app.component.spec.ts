@@ -35,8 +35,9 @@ describe('CountryService', function() {
     it('should return a list of countries', () => {
         let countryService: CountryService = getTestBed().get(CountryService);
         countryService.getCountries().subscribe(
-            (connection: MockConnection) => {
-                // expect(connection.response)
+            (result) => {
+                expect(result).toBeDefined();
+                expect(result.status).toBe(200);
             }
         );
     });
