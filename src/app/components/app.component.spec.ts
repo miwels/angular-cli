@@ -8,6 +8,8 @@ import { Http, HttpModule, BaseRequestOptions, ResponseOptions, Response } from 
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CountryService}  from '../services/country.service';
+import { UserService }  from '../services/user.service';
+import { User }         from '../models/user';
 
 describe('CountryService', function() {
     beforeEach(() => {
@@ -113,4 +115,39 @@ describe('AppComponent', () => {
     let compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('button')).toBeTruthy();
   }));
+});
+
+describe('UserService', function() {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+            UserService,
+            MockBackend,
+            BaseRequestOptions,
+            {
+                provide: Http,
+                deps: [MockBackend, BaseRequestOptions],
+                useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
+                        return new Http(backend, defaultOptions);
+                }
+            }
+        ],
+        imports: [
+            FormsModule,
+            HttpModule
+        ]
+    });
+        TestBed.compileComponents();
+    });
+
+    it('should insert a user in the system', () => {
+        let userService: UserService = getTestBed().get(UserService);
+        let mockUser: User = {"name" : "Test user", "sex": "male", "age": "20", "country" : "United Kingdom"};
+        userService.saveUser(mockUser).subscribe(
+            (result) => {
+                expect(result).toBeDefined();
+                expect(result.status).toBe(200);
+            }
+        );
+    });
 });
